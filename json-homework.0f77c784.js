@@ -714,99 +714,48 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"2R06K":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _taskOne = require("./conponents/taskOne");
-var _taskOneDefault = parcelHelpers.interopDefault(_taskOne);
-var _taskTho = require("./conponents/taskTho");
-var _taskThoDefault = parcelHelpers.interopDefault(_taskTho);
-(0, _taskOneDefault.default)();
-(0, _taskThoDefault.default)();
-
-},{"./conponents/taskOne":"1F0oU","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./conponents/taskTho":"e11Wa"}],"1F0oU":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>taskOne);
-function taskOne() {
-    const inpRef = document.getElementById('bookmarkInput');
-    const btnRef = document.getElementById('addBookmarkBtn');
-    const listRef = document.getElementById('bookmarkList');
-    const arr = JSON.parse(localStorage.getItem('link')) || [];
+const inpRef = document.getElementById('bookmarkInput');
+const btnRef = document.getElementById('addBookmarkBtn');
+const listRef = document.getElementById('bookmarkList');
+const arr = JSON.parse(localStorage.getItem('link')) || [];
+listRef.innerHTML = arr.map((e, i)=>{
+    return `<li><a target="_blank" href="${e}">${e}</a><button data-index="${i}" class="btn">x</button></li>`;
+}).join('');
+btnRef.addEventListener('click', ()=>{
+    if (inpRef.value.trim() === '') return;
+    arr.push(inpRef.value);
+    inpRef.value = '';
     listRef.innerHTML = arr.map((e, i)=>{
         return `<li><a target="_blank" href="${e}">${e}</a><button data-index="${i}" class="btn">x</button></li>`;
     }).join('');
-    btnRef.addEventListener('click', ()=>{
-        if (inpRef.value.trim() === '') return;
-        arr.push(inpRef.value);
-        inpRef.value = '';
+    localStorage.setItem('link', JSON.stringify(arr));
+});
+listRef.addEventListener('click', (e)=>{
+    if (e.target.tagName === "BUTTON") {
+        console.log(e.target.dataset.index);
+        arr.splice(e.target.dataset.index, 1);
         listRef.innerHTML = arr.map((e, i)=>{
             return `<li><a target="_blank" href="${e}">${e}</a><button data-index="${i}" class="btn">x</button></li>`;
         }).join('');
         localStorage.setItem('link', JSON.stringify(arr));
-    });
-    listRef.addEventListener('click', (e)=>{
-        if (e.target.tagName === "BUTTON") {
-            console.log(e.target.dataset.index);
-            arr.splice(e.target.dataset.index, 1);
-            listRef.innerHTML = arr.map((e, i)=>{
-                return `<li><a target="_blank" href="${e}">${e}</a><button data-index="${i}" class="btn">x</button></li>`;
-            }).join('');
-            localStorage.setItem('link', JSON.stringify(arr));
-        }
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"e11Wa":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>taskTho);
-function taskTho() {
-    const userNameRef = document.getElementById('username');
-    const userPaswordRef = document.getElementById('password');
-    const saveBtnRef = document.getElementById('saveBtn');
-    let user = {};
-    if (localStorage.getItem('user') === null) return;
-    else {
-        user = JSON.parse(localStorage.getItem('user'));
-        userNameRef.value = user.name;
-        userPaswordRef.value = user.pasword;
     }
-    saveBtnRef.addEventListener('click', ()=>{
-        user.name = userNameRef.value;
-        user.pasword = userPaswordRef.value;
-        localStorage.setItem('user', JSON.stringify(user));
-    });
+});
+const userNameRef = document.getElementById('username');
+const userPaswordRef = document.getElementById('password');
+const saveBtnRef = document.getElementById('saveBtn');
+let user = {};
+if (localStorage.getItem('user') === null) return;
+else {
+    user = JSON.parse(localStorage.getItem('user'));
+    userNameRef.value = user.name;
+    userPaswordRef.value = user.pasword;
 }
+saveBtnRef.addEventListener('click', ()=>{
+    user.name = userNameRef.value;
+    user.pasword = userPaswordRef.value;
+    localStorage.setItem('user', JSON.stringify(user));
+});
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire794f", {})
+},{}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire794f", {})
 
 //# sourceMappingURL=json-homework.0f77c784.js.map
