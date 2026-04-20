@@ -45,25 +45,23 @@ listRef.addEventListener('click',(e) => {
 
 
 
-    const userNameRef = document.getElementById('username')
-const userPaswordRef = document.getElementById('password')
+const userNameRef = document.getElementById('username')
+const userPasswordRef = document.getElementById('password')
 const saveBtnRef = document.getElementById('saveBtn')
 
 let user = {}
 
-if(localStorage.getItem('user') === null){
-    return
-} else{
+if(localStorage.getItem('user') !== null){
+
     user = JSON.parse(localStorage.getItem('user'))
     userNameRef.value = user.name
-userPaswordRef.value = user.pasword
-}
+    userPasswordRef.value = user.password
 
+}
 
 saveBtnRef.addEventListener('click',() => {
     user.name = userNameRef.value
-    user.pasword = userPaswordRef.value
+    user.password = userPasswordRef.value
 
     localStorage.setItem('user',JSON.stringify(user))
-    
-})
+}) 
